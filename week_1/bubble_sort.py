@@ -1,16 +1,20 @@
-n = [10,9,8,7,6,5,4]
+n = [6,4,1]
 
 def bubble_sort(n):
-    count=0
+    swap=0
     sorted = [0] * len(n)
     for i in range(len(n)):
         for j in range(len(n) - 1):
             if n[j] > n[j + 1]:
-                count+=1
-                sorted[j] , sorted[j + 1] = n[j + 1] , n[j]
+                swap+=1
+                n[j],n[j + 1] = n[j + 1], n[j]
             else:
-                sorted[j] , sorted[j + 1] = n[j], n[j + 1]
-    return (sorted,count)
+                n[j], n[j + 1] = n[j], n[j + 1]
+    return (n[0],n[-1],swap)
 
-
-print(bubble_sort(n))
+sorted= bubble_sort(n)
+print(f"""
+Array is sorted  in : {sorted[2]} swaps
+First Element : {sorted[0]}
+Last Element : {sorted[1]}
+""")
