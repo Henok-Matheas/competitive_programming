@@ -1,7 +1,7 @@
 
 
 def targetIndices(nums, n):
-    new = [0]*100
+    new = [0]*101
     final = []
     indices = []
     
