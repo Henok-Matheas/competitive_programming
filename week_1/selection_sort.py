@@ -7,6 +7,7 @@ def selectionSort1(n,arr):
         arr[i] , arr[low_index] = arr[low_index] , arr[i]
     return arr
 
-
-print(selectionSort1(14,[1,3,5,9,13,22,27,66,46,51,55,83,87,23]))
+arr = [1,3,5,9,13,22,27,66,46,51,55,83,87,23]
+arr_len = 14
+print(selectionSort1(arr_len,arr))
 # insertionSort1(3,[3,2,1])
