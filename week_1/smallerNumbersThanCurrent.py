@@ -1,4 +1,4 @@
-
+'took 7 minutes and 1 try'
 
 def smallerNumbersThanCurrent(nums):
     #this is the bruteforced version
