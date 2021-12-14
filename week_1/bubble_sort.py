@@ -8,8 +8,6 @@ def bubble_sort(n):
             if n[j] > n[j + 1]:
                 swap+=1
                 n[j],n[j + 1] = n[j + 1], n[j]
-            else:
-                n[j], n[j + 1] = n[j], n[j + 1]
     return (n[0],n[-1],swap)
 
 sorted= bubble_sort(n)
