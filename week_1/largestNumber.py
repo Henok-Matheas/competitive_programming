@@ -2,6 +2,8 @@
 
 
 def largestNumber4(nums):
+    if not any(map(bool,nums)):
+        return "0"
     nums  = list(map(str,nums))
 
     for i in range(len(nums)):
