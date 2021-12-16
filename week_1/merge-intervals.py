@@ -18,11 +18,11 @@ def merge(intervals):
         for j in range(i+1,len(intervals)):
             print(i,j,"this is i and j respectively")
             print(intervals[i],intervals[j],"these are the intervals of i and j")
-            # if len(interval[i] == 2 and intervals[i][0] <= intervals[j][0] and intervals[i][1] <= intervals[j][1]:
-            #     intervals[i][1] = intervals[j][1]
-            #     intervals[j] = 'i'
-            # elif len(interval[i] == 2 and intervals[i][0] <= intervals[j][0] and intervals[i][1] > intervals[j][1]:
-            #     intervals.remove(intervals[j])
+            if len(intervals[i]) == 2 and intervals[i][0] <= intervals[j][0] and intervals[i][1] <= intervals[j][1]:
+                intervals[i][1] = intervals[j][1]
+                intervals[j] = 'i'
+            elif len(intervals[i]) == 2 and intervals[i][0] <= intervals[j][0] and intervals[i][1] > intervals[j][1]:
+                intervals.remove(intervals[j])
 
     return intervals
 
