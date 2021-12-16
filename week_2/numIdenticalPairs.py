@@ -2,11 +2,11 @@
 
 class Solution:
     def numIdenticalPairs(nums):
-        if len(nums) < 2:
-            return 0
+        counted = [0]* 101
         g_pairs = 0
-        for i in range(len(nums)):
-            for j in range(i):
-                if nums[i] == nums[j]:
-                    g_pairs += 1
+        for i in nums:
+            counted[i] += 1 
+        
+        for j in counted:
+            g_pairs += int((j * (j - 1)/2))
         return g_pairs
