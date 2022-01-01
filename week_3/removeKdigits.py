@@ -1,43 +1,16 @@
-def removeKdigits(num,k):
-    # if len(num) == k:
-    #         return "0"
-    # digits = []
-    # for index in range(len(num) - 2):
-    #     digits.append([index,index + k])
-
-    # print(digits)
-
-    # digits.sort()
-
-
-            
-    # # digits.sort(key = lambda x : int(num[:x[0]] + num[x[1:]]))
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        mono_stack = []
+        rm_count = 0
+        for current in num:
+            curr_int = int(current)
+            while len(mono_stack) > 0 and rm_count < k and curr_int < mono_stack[-1]:
+                mono_stack.pop()
+                rm_count += 1
+            mono_stack.append(curr_int)
         
-    # return digits[0]
-
-
-
-
-        if len(num) == k:
-            return "0"
-        str = []
-        digits = []
-        for index in range(len(num) - 2):
-            digits.append( num[:index] + num[index + k:])
-            
-        digits.sort(key = lambda x : int(x))
-        
-        return digits[0]
-
-
-# num = "1432219"
-# k = 3
-# # Output: "1219"
-
-num = "1" + "0" * 99999
-k = 2
-# Output: "0"
-
-
-print(len(num))
-print(removeKdigits(num,k))
+        while rm_count < k:
+            mono_stack.pop()
+            rm_count += 1
+        answer = "".join(map(str, mono_stack)).lstrip("0")
+        return answer if len(answer) > 0 else "0"
