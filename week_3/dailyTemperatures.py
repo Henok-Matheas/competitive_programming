@@ -14,7 +14,7 @@ class Solution:
                         mono_stack.pop()
                     else:
                         break
-            mono_stack.append(j)
+            mono_stack.append(j)``
             j += 1
         
         
