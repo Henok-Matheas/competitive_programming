@@ -5,22 +5,22 @@ l = 10 ** 5 - 1
 r = 10 ** 5
 
 
-def logar(r, count):
+def log(r, count):
     if r == 1 or r == 0:
         return count
-    return logar(r // 2, count + 1)
+    return log(r // 2, count + 1)
 
 
-h = logar(r, 0)
+h = log(r, 0)
 right = 2 ** (h) + 2 ** h - 1
 left = 1
 
 
 def codeOne(num, left, right, l, r):
     # print("this is when we choose three alternatives","the left is ",left, " the right is ",right," the num is ",num)
-    if left > right:
-        return 0
-    if l <= left and right <= r:
+    # if left > right:
+    #     return 0
+    if l <= left <= right <= r:
         # print("the left is ",left, " the right is ",right," the num is ",num)
         return num
     elif num == 0 or num == 1:
