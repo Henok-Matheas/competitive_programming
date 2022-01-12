@@ -1,53 +1,44 @@
-def longestSubarray(nums, limit):
+class Solution:
+    def longestSubarray(self, nums: List[int], limit: int) -> int:
+        final = 1
         
-        max_len = 0
-        
-        bound = []
-        
-        i, j  = 0, 0
-        
-        while j < len(nums) and i < len(nums):
-            if i == len(nums) - 1:
-                return max_len
-            elif len(bound) == 0:
-                l_bound = nums[i] - limit
-                h_bound = nums[i] + limit
-                bound.append(l_bound)
-                bound.append(h_bound)
-                j += 1
-                print(nums[i:j],"appended")
-                print("bound",bound)
-                max_len = max((j - i),max_len)
-            elif bound[0] <= nums[j] and nums[j] <= bound[1]:
-                print(bound[0],nums[i],bound[1],"l_bound  num h_bound")
-                l_temp = nums[j] - limit
-                h_temp = nums[j] + limit
-                print(l_temp, h_temp, "these are j's low and high")
-                bound[0] = max(bound[0],l_temp)
-                bound[1] = min(bound[1],h_temp)
-                print(bound[0],bound[1],"bound[zero] and bound[one]")
-                j += 1
-                print(nums[i:j],"case passed")
-                print("bound",bound)
-                max_len = max((j - i),max_len)
-            else:
-                i += 1
-                j -= 1
-                print(nums[i],"i moved")
-        return max_len
+        dec_que = deque([])
+        inc_que = deque([])
+        start = 0
+        for index in range(len(nums)):
+                
+            while inc_que and abs(nums[index] - nums[inc_que[0]]) > limit:
+                # print("fail values in inc",nums[index],nums[inc_que[0]])
+                val = inc_que.popleft()
+                start = max(start, val + 1)
+                
+                if dec_que and dec_que[-1] == val:
+                    dec_que.pop()
+                # count -= 1
+                
+            while dec_que and abs(nums[index] - nums[dec_que[0]]) > limit:
+                val = dec_que.popleft()
+                start = max(val + 1, start)
+                # print("fail values in dec",nums[index],nums[dec_que[0]])
+                if inc_que and inc_que[-1] == val:
+                    inc_que.pop()
+                # count -= 1
+                # print("count",count)
+                
+            while inc_que and nums[inc_que[-1]] > nums[index]:
+                inc_que.pop()
 
+            while dec_que and nums[dec_que[-1]] < nums[index]:
+                dec_que.pop()
+                
+            dec_que.append(index)
+            inc_que.append(index)
+            
+#             print("dec_que",dec_que)
+#             print("inc_que",inc_que)
+            
+            final = max(final, (index - start + 1))
+            
+        return final
 
-# nums = [10,1,2,4,7,2]
-# limit = 5
-# # Output: 4 
-
-# nums = [4,2,2,2,4,4,2,2]
-# limit = 0
-# # Output: 3
-
-
-nums = [1,5,6,7,8,10,6,5,6]
-limit = 4
-# output = 5
-
-print(longestSubarray(nums,limit))
+    
