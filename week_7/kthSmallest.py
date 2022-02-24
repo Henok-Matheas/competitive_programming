@@ -1,4 +1,18 @@
 import heapq
+import heapq
+
+
+class Solution:
+
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        for j in range(k - 1):
+            middle = heapq.heappop(matrix)
+            heapq.heappop(middle)
+
+            if middle:
+                heapq.heappush(matrix, middle)
+
+        return matrix[0][0] if matrix and matrix[0] else None
 
 
 class Solution:
