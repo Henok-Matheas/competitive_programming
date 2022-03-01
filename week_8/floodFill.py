@@ -1,3 +1,38 @@
+#https://leetcode.com/problems/flood-fill/
+
+
+#recurrence solution
+class Solution:
+
+    def floodFill(self, image: List[List[int]], sr: int, sc: int,
+                  newColor: int) -> List[List[int]]:
+
+        oldColor = image[sr][sc]
+        directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+
+        visited = set()
+
+        def recur(sr, sc):
+            image[sr][sc] = newColor
+
+            for direction in directions:
+                row = sr + direction[0]
+                column = sc + direction[1]
+
+                if (row, column) in visited or row >= len(
+                        image) or row < 0 or column >= len(
+                            image[0]
+                        ) or column < 0 or image[row][column] != oldColor:
+                    continue
+
+                visited.add((row, column))
+                recur(row, column)
+
+        recur(sr, sc)
+        return image
+
+
+# iterative solution
 class Solution:
 
     def floodFill(self, image: List[List[int]], sr: int, sc: int,
