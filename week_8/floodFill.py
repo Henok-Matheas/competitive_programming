@@ -1,6 +1,36 @@
 #https://leetcode.com/problems/flood-fill/
 
 
+#another optimized recursive solution
+class Solution:
+
+    def floodFill(self, image: List[List[int]], sr: int, sc: int,
+                  newColor: int) -> List[List[int]]:
+
+        oldColor = image[sr][sc]
+        directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]
+
+        if newColor == oldColor:
+            return image
+
+        bound = lambda row, column: row < len(
+            image) and row >= 0 and column < len(image[0]) and column >= 0
+
+        def recur(sr, sc):
+            image[sr][sc] = newColor
+
+            for direction in directions:
+                row = sr + direction[0]
+                column = sc + direction[1]
+
+                if not bound(row, column) or image[row][column] != oldColor:
+                    continue
+                recur(row, column)
+
+        recur(sr, sc)
+        return image
+
+
 #recurrence solution
 class Solution:
 
