@@ -1,5 +1,33 @@
 class Solution:
 
+
+    def preictPartyVictory(self, sena t
+            e: str) -> st
+r           :
+        
+            
+           
+        
+        dic, opposite, visited, idx 
+           = {
+            "R": deque(),
+            "D": deque()
+        }, {
+            "R": "D",
+            "D": "R"
+        }, set(), 0
+for i in range(len(senate)):
+    dic[senate[i]].append(i)
+        while dic["R"] and dic["D"]:
+            if idx not in visited:
+                dic[senate[idx]].append(dic[senate[idx]].popleft())
+                visited.add(dic[opposite[senate[idx]]].popleft())
+            idx = (idx + 1) % len(senate)
+        return "Radiant" if dic["R"] else "Dire"
+
+
+class Solution:
+
     def predictPartyVictory(self, senate: str) -> str:
 
         dict = {}
