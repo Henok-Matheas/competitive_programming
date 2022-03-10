@@ -1,6 +1,14 @@
 class Solution:
 
     def minCostClimbingStairs(self, cost: List[int]) -> int:
+        for idx in range(2, len(cost)):
+            cost[idx] = min(cost[idx - 1], cost[idx - 2]) + cost[idx]
+        return min(cost[-1], cost[-2])
+
+
+class Solution:
+
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
         visited = defaultdict(int)
         value = 0
         n = 2
