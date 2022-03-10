@@ -2,6 +2,23 @@ class Solution:
 
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         visited = defaultdict(int)
+        value = 0
+        n = 2
+
+        visited[0] = 0
+        visited[1] = 0
+        while n <= len(cost):
+            visited[n] = min(visited[n - 1] + cost[n - 1],
+                             visited[n - 2] + cost[n - 2])
+            n += 1
+
+        return visited[len(cost)]
+
+
+class Solution:
+
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        visited = defaultdict(int)
 
         def recur(i):
             if i >= len(cost):
