@@ -8,6 +8,4 @@ class Solution:
                 current = nums[idx]
                 nums[indx] = nums[idx]
                 indx += 1
-            else:
-                nums[idx] = float("inf")
         return indx
