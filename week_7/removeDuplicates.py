@@ -2,13 +2,12 @@ class Solution:
 
     def removeDuplicates(self, nums: List[int]) -> int:
         current = -float("inf")
+        indx = 0
         for idx in range(len(nums)):
             if nums[idx] != current:
                 current = nums[idx]
+                nums[indx] = nums[idx]
+                indx += 1
             else:
                 nums[idx] = float("inf")
-        nums.sort()
-        count = 0
-        for num in nums:
-            count += 1 if num != float("inf") else 0
-        return count
+        return indx
