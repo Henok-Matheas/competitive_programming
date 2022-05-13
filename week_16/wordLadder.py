@@ -51,5 +51,4 @@ class Solution:
                         # print("the child is not visited",child)
                         visited.add(child[0])
                         parents.append(child)
-        # print(parents)
         return 0
