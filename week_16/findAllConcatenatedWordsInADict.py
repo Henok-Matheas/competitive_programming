@@ -34,9 +34,6 @@ class Solution:
         duplicates = []
         for word in words:
             count = concat_count(0, word)
-            print("")
-            print(f"count for word {word} is {count}")
-            print("")
             if count > 1:
                 duplicates.append(word)
 
