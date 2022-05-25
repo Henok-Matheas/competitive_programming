@@ -15,10 +15,8 @@ class Solution:
             current = trie
             count = 0
             for idx in range(index, len(word)):
-                if count > 1:
-                    return count
                 char = word[idx]
-                if char not in current:
+                if char == "" or char not in current:
                     return 0 if count == 0 else count + 1
                 current = current[char]
 
@@ -26,7 +24,7 @@ class Solution:
                     if idx == len(word) - 1:
                         return count + 1
                     count += concat_count(idx + 1, word)
-            return count + 1
+            return 0 if count == 0 else count + 1
 
         for word in words:
             add(word)
@@ -36,5 +34,4 @@ class Solution:
             count = concat_count(0, word)
             if count > 1:
                 duplicates.append(word)
-
         return duplicates
