@@ -14,12 +14,11 @@ class MyLinkedList:
     def get(self, index: int) -> int:
         if index >= self.length:
             return -1
-        counter = 0
         curr = self.head
-        while counter < index:
+        while index and curr:
             curr = curr.next
-            counter += 1
-        return curr.value if curr and counter == index else -1
+            index -= 1
+        return curr.value if curr else -1
 
     def addAtHead(self, val: int) -> None:
         node = Linked(val)
@@ -30,12 +29,13 @@ class MyLinkedList:
     def addAtTail(self, val: int) -> None:
         curr = self.head
         node = Linked(val)
-        if self.length == 0:
-            self.addAtHead(val)
-            return
         while curr and curr.next:
             curr = curr.next
-        curr.next = node
+
+        if curr:
+            curr.next = node
+        else:
+            self.addAtHead(val)
         self.length += 1
 
     def addAtIndex(self, index: int, val: int) -> None:
@@ -48,12 +48,11 @@ class MyLinkedList:
         elif index > self.length:
             return
 
-        counter = 0
         curr = self.head
         node = Linked(val)
-        while counter < index - 1:
+        while index - 1:
             curr = curr.next
-            counter += 1
+            index -= 1
         node.next = curr.next
         curr.next = node
         self.length += 1
@@ -64,27 +63,23 @@ class MyLinkedList:
             return
 
         if index == 0:
-            temp = self.head
             self.head = self.head.next
-            temp.next = None
             return
 
-        counter = 0
         curr = self.head
-
-        while counter < index - 1:
+        while index - 1:
             curr = curr.next
-            counter += 1
+            index -= 1
 
-        temp = curr.next
         curr.next = curr.next.next
-        temp.next = None
         self.length -= 1
         return
 
-    def iterate(self):
-        curr = self.head
 
-        while curr:
-            print(curr.value)
-            curr = curr.next
+# Your MyLinkedList object will be instantiated and called as such:
+# obj = MyLinkedList()
+# param_1 = obj.get(index)
+# obj.addAtHead(val)
+# obj.addAtTail(val)
+# obj.addAtIndex(index,val)
+# obj.deleteAtIndex(index)
