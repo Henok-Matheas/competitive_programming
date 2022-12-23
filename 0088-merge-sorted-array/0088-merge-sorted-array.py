@@ -10,7 +10,7 @@ class Solution:
                 ## swap
                 nums1[index] = nums2[pointer2]
                 pointer2 -= 1
-            elif pointer1 > -1 and (pointer2 < 0 or nums1[pointer1] >= nums2[pointer2]):
+            else:
                 ## swap
                 nums1[index] = nums1[pointer1]
                 pointer1 -= 1
