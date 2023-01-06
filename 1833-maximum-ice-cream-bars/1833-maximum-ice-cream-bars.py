@@ -5,13 +5,11 @@ class Solution:
         costs = cost i = price of buying icecream i
         coins = amount to spend
         """
-        total = 0
         costs.sort()
         
-        for cost in costs:
-            if cost > coins:
-                continue
+        for index, cost in enumerate(costs):
             coins -= cost
-            total += 1
+            if coins < 0:
+                return index
             
-        return total
+        return len(costs)
