@@ -1,0 +1,43 @@
+from collections import defaultdict, deque
+import heapq
+class Solution:
+    def findOrder(self,dict, N, K):
+    # code here
+    
+        graph = defaultdict(list)
+        indegree = defaultdict(int)
+        
+        for word in dict:
+            for letter in word:
+                graph[letter] = []
+        
+        for idx in range(0, len(dict) - 1):
+            curr = dict[idx]
+            next_ = dict[idx + 1]
+            
+            for idx in range(len(curr)):
+                if len(next_) == idx:
+                    return []
+                if next_[idx] != curr[idx]:
+                    graph[curr[idx]].append(next_[idx])
+                    indegree[next_[idx]] += 1
+                    break
+                
+        queue = deque([])
+        answer= []
+        
+        for node in graph:
+            if not indegree[node]:
+                queue.append(node)
+        
+        while queue:
+            node = queue.popleft()
+            answer.append(node)
+            
+            for neigh in graph[node]:
+                indegree[neigh] -= 1
+                
+                if not indegree[neigh]:
+                    queue.append(neigh)
+                
+        return "".join(answer)
