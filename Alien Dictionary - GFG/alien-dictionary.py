@@ -1,5 +1,5 @@
 #User function Template for python3
-from collections import defaultdict
+from collections import defaultdict, deque
 import heapq
 class Solution:
     def findOrder(self,dict, N, K):
@@ -24,22 +24,26 @@ class Solution:
                     indegree[next_[idx]] += 1
                     break
                 
-        heap = []
+        queue = deque([])
         answer= []
         
         for node in graph:
             if not indegree[node]:
-                heapq.heappush(heap, node)
+                
+                # heapq.heappush(heap, node)
+                queue.append(node)
         
-        while heap:
-            node = heapq.heappop(heap)
+        while queue:
+            # node = heapq.heappop(heap)
+            node = queue.popleft()
             answer.append(node)
             
             for neigh in graph[node]:
                 indegree[neigh] -= 1
                 
                 if not indegree[neigh]:
-                    heapq.heappush(heap, neigh)
+                    # heapq.heappush(heap, neigh)
+                    queue.append(neigh)
                 
         return "".join(answer)
 
