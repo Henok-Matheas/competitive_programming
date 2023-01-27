@@ -19,7 +19,6 @@ class Solution:
         for idx in range(len(s)):
             ends[s[idx]] = idx
         
-        print(ends)
         for idx in range(len(s)):
             end = max(end, ends[s[idx]])
             if idx == end:
