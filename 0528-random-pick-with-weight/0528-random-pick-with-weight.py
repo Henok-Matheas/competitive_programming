@@ -12,7 +12,7 @@ class Solution:
     we will have a new array
     
     so for every index
-     we will append a new array of size int(weight / sum * len(array))
+     we will append a new array of size int(weight * len(array) * 100/ sum )
     """
 
     def __init__(self, w: List[int]):
@@ -20,10 +20,10 @@ class Solution:
         self.array = []
         self.SUM = sum(w)
         self.LENGTH = len(w)
-        self.PER = 100
+        self.PERCENT = 100
         
         for idx, weight in enumerate(w):
-            self.array += [idx] * math.ceil(weight * self.LENGTH * self.PER / self.SUM)
+            self.array += [idx] * math.ceil(weight * self.LENGTH * self.PERCENT / self.SUM)
         
 
     def pickIndex(self) -> int:
