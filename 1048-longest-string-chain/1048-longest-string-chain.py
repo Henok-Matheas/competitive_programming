@@ -17,17 +17,14 @@ class Solution:
         def is_pred(start, end):
             start_word = words[start]
             word = words[end]
-            left, right = 0, 0
+            left = 0
             count = 0
             
-            while right < len(word):
+            for right in range(len(word)):
                 if left < len(start_word) and start_word[left] == word[right]:
                     left += 1
-                    right += 1
-                    
                 else:
                     count += 1
-                    right += 1
                 
             return count == 1
         
