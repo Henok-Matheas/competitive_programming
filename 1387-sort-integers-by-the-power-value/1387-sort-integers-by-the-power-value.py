@@ -9,6 +9,25 @@ class Solution:
         return 1 + self.dp(num // 2)
     
     
+    def quickselect(self, left, right, nums, k):
+        pivot, pointer = nums[right], left
+        
+        for idx in range(left, right):
+            if nums[idx] <= pivot:
+                nums[pointer], nums[idx] = nums[idx], nums[pointer]
+                pointer += 1
+                
+                
+        nums[pointer], nums[right] = nums[right], nums[pointer]
+        
+        if pointer > k:
+            return self.quickselect(left, pointer - 1, nums, k)
+        if pointer < k:
+            return self.quickselect(pointer + 1, right, nums, k)
+        
+        return nums[pointer][1]
+    
+    
     def getKth(self, lo: int, hi: int, k: int) -> int:
         """
         bruteforce is a dp approach by saving
@@ -31,5 +50,5 @@ class Solution:
         for num in range(lo, hi + 1):
             nums.append([self.dp(num), num])
             
-        nums.sort()
-        return nums[k - 1][1]
+        
+        return self.quickselect(0, len(nums) - 1, nums, k - 1)
