@@ -7,17 +7,31 @@ class Solution:
             graph[node1].append(node2)
             graph[node2].append(node1)
             
-        stack = [source]
-        visited = set([source])
-                    
-        while stack:
-            node = stack.pop()
+        def dfs(node, visited):
             if node == destination:
                 return True
             
+            found = False
             for neighbour in graph[node]:
                 if neighbour not in visited:
-                    stack.append(neighbour)
                     visited.add(neighbour)
+                    found = found or dfs(neighbour, visited)
                     
-        return False
+            return found
+        
+        visited = set([source])
+        return dfs(source, visited)
+            
+#         stack = [source]
+                    
+#         while stack:
+#             node = stack.pop()
+#             if node == destination:
+#                 return True
+            
+#             for neighbour in graph[node]:
+#                 if neighbour not in visited:
+#                     stack.append(neighbour)
+#                     visited.add(neighbour)
+                    
+#         return False
