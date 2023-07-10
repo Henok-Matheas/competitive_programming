@@ -1,34 +1,24 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        prefix_sum = [0]
+        """
+        for every idx have a total sum
+            while that total sum is less than target
+            include neighbours
+            
+            if total greater or equal have the length
+            total - current
+        """
+        total = 0
         minim = len(nums) + 1
-        
-        for num in nums:
-            prefix_sum.append(num + prefix_sum[-1])
+        right = 0
+        for idx, curr in enumerate(nums):
+            while right < len(nums) and total < target:
+                total += nums[right]
+                right += 1
             
-            
-        def binary(start, curr, prefix):
-            left, right = start, len(prefix) - 1
-            best = len(prefix) + start
-            
-            while left <= right:
-                mid = (left + right) // 2
+            if total >= target:
+                minim = min(minim, right - idx)
                 
-                mid_sum = prefix[mid] - curr
-
-                if mid_sum < target:
-                    left = mid + 1
-
-                else:
-                    best = mid
-                    right = mid - 1
-
-            return best
+            total -= curr
             
-            
-        for idx, curr in enumerate(prefix_sum):
-            end = binary(idx, curr, prefix_sum)
-            
-            minim = min(minim, end - idx)
-                
-        return 0 if minim == len(nums) + 1 else minim
+        return minim if minim != len(nums) + 1 else 0
