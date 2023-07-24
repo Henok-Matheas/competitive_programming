@@ -95,17 +95,7 @@ class Solution:
         """
         
         def trees(start, end):
-            if start > end:
-                return [None]
-            
-            answer = []
-            
-            for node in range(start, end + 1):
-                for left in trees(start, node - 1):
-                    for right in trees(node + 1, end):
-                        answer.append(TreeNode(node, left, right))
-                        
-            return answer
+            return [TreeNode(node, left, right) for node in range(start, end + 1) for left in trees(start, node - 1) for right in trees(node + 1, end)] or [None]
         
         return trees(1, n)
             
