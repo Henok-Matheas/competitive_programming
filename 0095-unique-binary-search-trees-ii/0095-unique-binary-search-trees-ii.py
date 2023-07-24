@@ -66,76 +66,48 @@ class Solution:
         
         return node
         
+        
+        while representing it, you can wait until the end.
+        
         """
         
-        def deserialize(level, node_dict):
-            if level not in node_dict:
-                return None
-            
-            node = TreeNode(node_dict[level] + 1)
-            
-            node.left = deserialize(level + "L", node_dict)
-            node.right = deserialize(level + "R", node_dict)
-            
-            return node
+        """
         
+        second way
         
-        def delete(node, array, node_dict, visited):
-            level = array[node]
-            node_dict.pop(level)
-            array[node] = 0
-            
+        what if I had a function which returned the list of bsts from some start to an end, then we can make it a divide and conquer question
         
-        def insert(level, node, array, node_dict, visited):
-            if level not in node_dict:
-                node_dict[level] = node
-                array[node] = level
-                return 
-            
-            if node < node_dict[level]:
-                insert(level + "L", node, array, node_dict, visited)
-                
-            else:
-                insert(level + "R", node, array, node_dict, visited)
-                
+        for a single node
         
-        def mutate(array):
-            return tuple(array)
+        trees(1, 1)
+        return [Node(1)]
         
-        
-        def backtrack(array, node_dict, visited, visited_state):
-            state = mutate(array)
-            
-            if state in visited_state:
-                return
-            
-            visited_state.add(state)
-            
-            if len(visited) == n:
-                bst = deserialize("F", node_dict)
-                answer.append(bst)
-                return
-            
-            
-            
-            for node in range(n):
-                if node not in visited:
-                    insert("F", node, array, node_dict, visited)
-                    visited.add(node)
-                    backtrack(array, node_dict, visited, visited_state)
-                    visited.remove(node)
-                    delete(node, array, node_dict, visited)
-                
-                
-                
-        array = [0] * n
-        node_dict = {}
-        visited = set()
-        visited_state = set()
+        trees(1, 2)
         answer = []
+            for node in range(start, end + 1):
+                for left in trees(start, node) or [None]:
+                    for right in trees(node + 1, end + 1) or [None]:
+                        answer.append(TreeNode(node, left, right))
+                        
+            return answer
+                
         
-        backtrack(array, node_dict, visited, visited_state)
-        return answer
+        """
+        
+        def trees(start, end):
+            if start > end:
+                return [None]
+            
+            answer = []
+            
+            for node in range(start, end + 1):
+                for left in trees(start, node - 1):
+                    for right in trees(node + 1, end):
+                        answer.append(TreeNode(node, left, right))
+                        
+            return answer
+        
+        return trees(1, n)
             
             
         
