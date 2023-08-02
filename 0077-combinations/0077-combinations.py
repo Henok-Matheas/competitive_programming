@@ -4,9 +4,8 @@ class Solution:
         
         """
         combinations = []
-        paths = set()
         combination = []
-        def backtrack(num, combination, path):
+        def backtrack(num, combination):
             if len(combination) == k:
                 combinations.append(combination[:])
                 return
@@ -14,14 +13,12 @@ class Solution:
             if num > n:
                 return
             
-            if not 2 ** num & path and 2 ** num | path not in paths:
-                    paths.add(2 ** num | path)
-                    combination.append(num)
-                    backtrack(num + 1, combination, 2 ** num | path)
-                    combination.pop()
+            combination.append(num)
+            backtrack(num + 1, combination)
+            combination.pop()
             
-            backtrack(num + 1, combination, path)
+            backtrack(num + 1, combination)
                 
         
-        backtrack(1, combination, 0)
+        backtrack(1, combination)
         return combinations
