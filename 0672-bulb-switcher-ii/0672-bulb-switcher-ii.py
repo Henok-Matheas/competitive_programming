@@ -59,7 +59,8 @@ class Solution:
         0, 3, 6, 9
         
         """
-        buttons = set([(0, 0, 0, 0)])
+        buttons = set([0])
+        button_numbers = 4
         statuses = set([])
         increments = [1, 2, 2, 3]
         starts = [0, 0, 1, 0]
@@ -67,13 +68,9 @@ class Solution:
         for _ in range(presses):
             child_buttons = set([])
             for button in buttons:
-                new_button = list(button)
-                
-                for idx in range(len(button)):
-                    new_button[idx] = 1 - button[idx]
-                    child_buttons.add(tuple(new_button))
-                    new_button[idx] = button[idx]
-            
+                for idx in range(button_numbers):
+                    child_buttons.add(button ^ (2 ** idx))
+                    
             buttons = child_buttons 
             
         
@@ -83,8 +80,8 @@ class Solution:
             
         for button in buttons:
             status = [1] * n
-            for idx in range(len(button)):
-                if button[idx]:
+            for idx in range(button_numbers):
+                if (2 ** idx) & button:
                     fill(status, starts[idx], increments[idx])
             
             statuses.add("".join(map(str, status)))
