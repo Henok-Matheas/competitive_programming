@@ -46,17 +46,19 @@ class Solution:
         heaters.sort()
         radius=0
         for i,c in enumerate(houses):
-            idx=bisect.bisect_left(heaters,c)
-
-            if idx == len(heaters):
-                m = abs(heaters[-1] - c)
-            elif idx == 0:
-                m = abs(heaters[idx] - c)
+            if c>heaters[-1]:
+                idx=len(heaters)-1
             else:
-                m = min(abs(heaters[idx] - c), abs(heaters[idx - 1] - c))
+                idx=bisect.bisect_left(heaters,c)
+            f_elemnt=heaters[idx]
+            if idx==0:
+                s_element=heaters[idx]
+            else:
+                s_element=heaters[idx-1]
+            m=min(abs(f_elemnt-c),abs(s_element-c))
             radius=max(m,radius)
         return radius
-            
+
             
         
         
