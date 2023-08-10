@@ -34,38 +34,28 @@ class Solution:
         
         
         house_set = set(house)
+        
+        
+        n = houses
+        m = heaters
+        
+        nlogn, (n + m)log(n + m)
+        time complexity = (n + m)log(n + m)
+        space complexity = n + m 
         """
-        
-        house_set = set(houses)
-        heaters_set = set(heaters)
-        houses  = list(set(houses + heaters))
-        houses.sort()
-        index_changes = [-1, 1]
-        min_radius = 0
-        
-        heap = []
-        
-        for idx, val in enumerate(houses):
-            if val in heaters_set:
-                heap.append([0, idx])
-                
-                
-                
-        while heap and house_set:
-            radius, index = heapq.heappop(heap)
-            
-            if houses[index] in house_set:
-                house_set.remove(houses[index])
-                min_radius = max(radius, min_radius)
-                
-                
-            for change in index_changes:
-                if 0 <= index + change < len(houses) and houses[index + change] in house_set:
-                    new_radius = radius + abs(houses[index + change] - houses[index])
-                    heapq.heappush(heap, [new_radius, index + change])
-                    
-        return min_radius
+        heaters.sort()
+        radius=0
+        for i,c in enumerate(houses):
+            idx=bisect.bisect_left(heaters,c)
 
+            if idx == len(heaters):
+                m = abs(heaters[-1] - c)
+            elif idx == 0:
+                m = abs(heaters[idx] - c)
+            else:
+                m = min(abs(heaters[idx] - c), abs(heaters[idx - 1] - c))
+            radius=max(m,radius)
+        return radius
             
             
         
