@@ -38,20 +38,12 @@ class Solution:
         
         so before doing ath, when removing from a heap we remove the unupdated ones.
         """
-        sequence = {idx: -1 for idx in range(1, k + 1)}
-        heap = [[1, -1, idx] for idx in range(1, k + 1)]
-        
-        for idx in reversed(range(len(rolls))):
-            roll = rolls[idx]
-            while heap and (sequence[heap[0][2]] != heap[0][1] or heap[0][2] == roll and heap[0][0] == 1):
-                heapq.heappop(heap)
+        answer = 1
+        sequence = set()
+        for roll in rolls:
+            sequence.add(roll)
+            if len(sequence) == k:
+                answer += 1
+                sequence.clear()
                 
-            seq, index, val = heap[0] if heap else [1, 0, roll]
-            
-            sequence[roll] = idx
-            heapq.heappush(heap, [seq + 1, idx, roll])
-            
-        while heap and sequence[heap[0][2]] != heap[0][1]:
-            heapq.heappop(heap)
-            
-        return heap[0][0]
+        return answer
