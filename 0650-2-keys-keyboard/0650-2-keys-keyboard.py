@@ -69,25 +69,35 @@ class Solution:
             if number == n:
                 return 0
                 
+                
+        6 / 2
+        
+        3
+        
+        3 + 2
+        
+        8 // 2
+        
+        4 2
+        
+        
+        4 // 2
+        
+        
+                
             
         
         """
         if n == 1:
             return 0
         
-        @lru_cache(None)
-        def dp(number, copy_size, operation):
-            if number > n:
-                return float("inf")
-            
-            if number == n:
-                return 0
-            
-            if operation == "PASTE":
-                return 1 + dp(number + copy_size, copy_size, "COPY")
-            
-            
-            return min(dp(number, copy_size, "PASTE"), 1 + dp(number, number, "PASTE"))
+        total = 0
         
-        
-        return 1 + dp(1, 1, "PASTE")
+        for div in range(2, int(math.sqrt(n)) + 1):
+            while n and n % div == 0:
+                total += div
+                n //= div
+                
+        return total + (n if n > 1 else 0)
+                
+                
