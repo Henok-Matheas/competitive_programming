@@ -15,20 +15,6 @@ class Solution:
         
         
         """
-        @lru_cache(None)
-        def dp(idx, city1, city2):
-            if idx == len(costs):
-                return 0
-            
-            fly1 = fly2 = float("inf")
-            
-            if city1:
-                fly1 = costs[idx][0] + dp(idx + 1, city1 - 1, city2)
-                
-            if city2:
-                fly2 = costs[idx][1] + dp(idx + 1, city1, city2 - 1)
-            
-            return min(fly1, fly2)
+        costs.sort(key= lambda cost: cost[0] - cost[1])
         
-        
-        return dp(0, len(costs) // 2, len(costs) // 2)
+        return sum([city1 for (city1, city2) in costs[:len(costs) // 2]]) + sum([city2 for (city1, city2) in costs[len(costs) // 2:]])
