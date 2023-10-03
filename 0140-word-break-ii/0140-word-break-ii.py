@@ -39,19 +39,20 @@ class Solution:
         
             
         def recur(idx, path, current):
-            
             if idx == len(s):
                 answer.append(" ".join(wordDict[index] for index in path))
                 return
             
-            if s[idx] in current:
-                if idx + 1 < len(s):
-                    recur(idx + 1, path, current[s[idx]])
+            if s[idx] not in current:
+                return
+            
+            if idx + 1 < len(s):
+                recur(idx + 1, path, current[s[idx]])
                 
-                if current[s[idx]]["#"] != -1:
-                    path.append(current[s[idx]]["#"])
-                    recur(idx + 1, path, trie)
-                    path.pop()
+            if current[s[idx]]["#"] != -1:
+                path.append(current[s[idx]]["#"])
+                recur(idx + 1, path, trie)
+                path.pop()
                     
         recur(0, [], trie)
         return answer
