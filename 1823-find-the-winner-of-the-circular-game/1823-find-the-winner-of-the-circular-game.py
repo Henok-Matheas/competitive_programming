@@ -78,10 +78,10 @@ class Solution:
         """
         
         
-        def helper(size, k):
-            if size == 1:
-                return 0
-            
-            return (helper(size - 1, k) + k) % size
+        answer = 0
         
-        return helper(n , k) + 1
+        
+        for size in range(1, n + 1):
+            answer = (answer + k) % size
+            
+        return answer + 1
