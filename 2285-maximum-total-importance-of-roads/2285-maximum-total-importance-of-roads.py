@@ -44,8 +44,8 @@ class Solution:
             
         connection.sort()
         
-        for idx, count in enumerate(connection):
-            total += (idx + 1) * count
+        for idx, count in enumerate(connection, start = 1):
+            total += idx * count
             
         return total
         
