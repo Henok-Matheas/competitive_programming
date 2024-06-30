@@ -54,8 +54,5 @@ class Solution:
             else:
                 if union(node1, node2, type_):
                     count += 1
-                    
-                    
-        validity = valid(1) and valid(2)
                 
-        return count if validity else -1
+        return count if valid(1) and valid(2) else -1
