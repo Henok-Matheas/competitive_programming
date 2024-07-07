@@ -3,12 +3,20 @@ class Solution:
         """
         
         """
-        if len(s) != len(t):
-            return False
+        char_count = [0] * (ord("z") - ord("a") + 1)
         
-        s_count = [0] * 26
-        t_count = [0] * 26
-        a_val = ord('a')
+        
+        for char in s:
+            char_count[ord(char) - ord("a")] += 1
+            
+        for char in t:
+            char_count[ord(char) - ord("a")] -= 1
+            
+        for count in char_count:
+            if count != 0:
+                return False
+            
+        return True
         
         
         for idx in range(len(s)):
