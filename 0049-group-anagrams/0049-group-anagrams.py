@@ -6,8 +6,10 @@ class Solution:
         anagram_dict = defaultdict(list)
         
         for word in strs:
-            anagram = [char for char in word]
-            anagram.sort()
-            anagram_dict["".join(anagram)].append(word)
+            anagram = ["0"] * 26
+            for char in word:
+                anagram[ord(char) - ord("a")] = str(int(anagram[ord(char) - ord("a")]) + 1)
+                
+            anagram_dict[tuple(anagram)].append(word)
             
         return anagram_dict.values()
