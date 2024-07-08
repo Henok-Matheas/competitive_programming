@@ -1,14 +1,18 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counts = Counter(nums)
-        heap = []
+        buckets = [[] for _ in range(len(nums) + 1)]
+        counter = Counter(nums)
+        frequent = []
         
-        for num in counts:
-            heapq.heappush(heap, [counts[num], num])
+        for num, count in counter.items():
+            buckets[count].append(num)
             
-            if len(heap) > k:
-                heapq.heappop(heap)
-        
-        
-        
-        return [val for count, val in heap]
+            
+        while k and buckets:
+            vals = buckets.pop()
+            while k and vals:
+                val = vals.pop()
+                frequent.append(val)
+                k -= 1
+            
+        return frequent
