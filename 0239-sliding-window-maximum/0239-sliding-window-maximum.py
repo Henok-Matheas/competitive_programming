@@ -1,21 +1,38 @@
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        deq = deque([])
-        left = 0
-        answer = []
-
-        for right in range(len(nums)):
-            ## remove top element if out of bounds of window
-            if deq and deq[0] < left:
-                deq.popleft()
-            ## monotonic operations
-            while deq and nums[deq[-1]] < nums[right]:
-                deq.pop()
-            deq.append(right)
+        """
+        we want to build an array with each value being the largest from that window
+        
+        
+        we will have a increasing_deque = deque([])
+        and a max_sums array
+        
+        for every idx, val
+        
+        while val <= nums[inc_stack[-1]]:
+            pop them from the inc_stack since they are useless
             
-            ## append if window is satisfied.
-            if right - left + 1 == k:
-                answer.append(nums[deq[0]])
-                left += 1
-
-        return answer
+        if inc_deque[0] <= idx - k:
+            deque.popleft()
+            
+        if idx - k >= 0:
+            max_sums.append(stack[inc_deque[0]])
+        """
+        
+        inc_stack = deque([])
+        max_sums = []
+        
+        for idx, val in enumerate(nums):
+            while inc_stack and val >= nums[inc_stack[-1]]:
+                inc_stack.pop()
+                
+            inc_stack.append(idx)
+                
+            if inc_stack and inc_stack[0] <= idx - k:
+                inc_stack.popleft()
+            
+            if idx - k + 1 > -1:
+                max_sums.append(nums[inc_stack[0]]) 
+                
+            
+        return max_sums
