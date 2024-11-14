@@ -1,19 +1,27 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         """
-        for every length we want the farthest greater or equal length. then we can just move the index of the smaller one, 
+        whenever we are asked for two points or some target and a list of sth we should use two pointers
         
+        for this question what we can do is have two pointers at each end and the smaller one moves further till we find the sweet spot?
+        
+        solution:
+        have a left and right
+        total = right - left * min(nums[left], right)
+        whenever left <= right
+        move left
+        else move right
         """
-        max_area = 0
         left, right = 0, len(height) - 1
-        
-        while left < right:
-            left_val, right_val = height[left], height[right]
-            area = min(left_val, right_val) * (right - left)
-            max_area = max(area, max_area)
+        max_area = 0
+        while left <= right:
+            area = (right - left) * min(height[left], height[right])
+            max_area = max(max_area, area)
             
-            if left_val < right_val:
+            if height[left] <= height[right]:
                 left += 1
             else:
-                right -=1 
+                right -= 1
+            
         return max_area
+        
