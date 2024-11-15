@@ -1,32 +1,31 @@
 class Solution:
     def minCapability(self, nums: List[int], k: int) -> int:
         """
+        for this question we just need to jump either 2 or 3 steps
+        
+        what if we use the heap to only store k values?
+        
+        
+        
         
         """
+        def is_valid(diff, k):
+            prev = -2
+            for idx, num in enumerate(nums):
+                if idx > prev + 1 and num <= diff:
+                    prev = idx
+                    k -= 1  
+            return k <= 0
+        
         left, right = 0, max(nums)
-        answer = 0
-        
-        def counter(target, nums):
-            idx, count = 0, 0
-            
-            while idx < len(nums):
-                if nums[idx] <= target:
-                    count += 1
-                    idx += 1
-                    
-                idx += 1
-                
-            return count
-        
-        
+        best = right
         while left <= right:
             mid = (left + right) // 2
             
-            if counter(mid, nums) < k:
-                left = mid + 1
-                
-            else:
-                answer = mid
+            if is_valid(mid, k):
                 right = mid - 1
-                
-        return answer
+                best = mid
+            else:
+                left = mid + 1
+        
+        return best
