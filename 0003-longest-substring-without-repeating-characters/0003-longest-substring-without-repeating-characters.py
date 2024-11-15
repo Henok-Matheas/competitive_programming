@@ -1,24 +1,34 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
-        for every val
-            have a set and if there is val in set
-            empty set
-            max =
+        a while loop for the left
+        
+        have a for while
+        the for is just a decoy
+        we will also store invalid_char
+        
+        while left and right less than length
+        while right char is not in dict
+        right += 1
+        
+        maxim = 
+        
+        while right and left char != right char
+        count -= 1
         """
-        max_length = 0
-        left = 0
-        chars = {}
-        
-        for idx in range(len(s)):
-            char = s[idx]
+        counter = defaultdict(int)
+        maxim = 0
+        left, right = 0, 0
+        while left < len(s) and right < len(s):
+            while right < len(s) and counter[s[right]] == 0:
+                counter[s[right]] += 1
+                right += 1
             
-            while char in chars:
-                chars.pop(s[left])
+            maxim = max(maxim, right - left)
+            
+            while right < len(s) and counter[s[right]]:
+                counter[s[left]] -= 1
                 left += 1
-            
-            chars[char] = idx
-            
-            max_length = max(max_length, len(chars))
+                
+        return maxim
         
-        return max_length
