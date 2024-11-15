@@ -6,13 +6,18 @@ class Solution:
         have a while loop to place the numbers at their correct positions
         so we will have for while loop
         the while loop is for placing and the way it works is 
+        reverse the nums and then again revese
         """
-        visited = set()
-        for seek in range(len(nums)):
-            if seek in visited:
-                continue
-            curr_idx, curr = seek, nums[seek]
-            while (curr_idx + k) % len(nums) not in visited:
-                visited.add((curr_idx + k) % len(nums))
-                curr, nums[(curr_idx + k) % len(nums)] = nums[(curr_idx + k) % len(nums)], curr
-                curr_idx = (curr_idx + k) % len(nums)
+        nums.reverse()
+        k %= len(nums)
+        
+        
+        def reverse(left, right):
+            while left <= right:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+        
+        reverse(0, k - 1)
+        reverse(k, len(nums) - 1)
+        
