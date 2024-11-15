@@ -16,19 +16,18 @@ class Solution:
         while right and left char != right char
         count -= 1
         """
-        counter = defaultdict(int)
+        chars = set()
+        left = 0
         maxim = 0
-        left, right = 0, 0
-        while left < len(s) and right < len(s):
-            while right < len(s) and counter[s[right]] == 0:
-                counter[s[right]] += 1
-                right += 1
-            
-            maxim = max(maxim, right - left)
-            
-            while right < len(s) and counter[s[right]]:
-                counter[s[left]] -= 1
+        
+        for char in s:
+            while char in chars:
+                chars.remove(s[left])
                 left += 1
-                
+            
+            chars.add(char)
+            maxim = max(maxim, len(chars))
+            
         return maxim
+            
         
