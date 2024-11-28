@@ -1,23 +1,20 @@
 class Solution:
     def longestNiceSubarray(self, nums: List[int]) -> int:
         """
-        this is basically the longest repeating character question since and is basically saying we can't have the same values at the same place
+        while the bitwise and of the total and current is not zero
+        do a bitwise xor of the total and left
         
-        
-        total will store the bitwise or this is to show which indexes have values stored at them
-        
-        we will remove while the and of total curr is not zero
-        
-        total is ored with curren num
+        then do bitwise or of the current and total
         """
-        left, total, maxim = 0, 0, 1
-        
+        total, maxim = 0, 0
+        left = 0
         
         for right, num in enumerate(nums):
             while total & num:
                 total ^= nums[left]
-                left += 1
+                left += 1   
             total |= num
             maxim = max(maxim, right - left + 1)
-        
+            
         return maxim
+            
