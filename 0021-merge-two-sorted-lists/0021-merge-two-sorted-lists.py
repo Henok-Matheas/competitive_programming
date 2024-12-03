@@ -28,8 +28,6 @@ class Solution:
         head.next = ListNone()
         head = head.next
         """
-        if not list1 and not list2:
-            return None
         head = ListNode()
         ans = head
         
