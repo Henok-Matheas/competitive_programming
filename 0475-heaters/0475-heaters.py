@@ -1,64 +1,57 @@
 class Solution:
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
         """
-        we can do it using heap
+        what if we do binary search over the answer?
         
-        when all the houses are visited we stop
+        the solution will be nlog(val highest - lowest)
         
+        3 * 10 ** 4
+        8 * 3
         
-        so we add the heaters into the house list
+        300 * 10 ** 4
         
-        make it a set.
+        3 * 10 ** 6
         
+        WORKS BUT TLE
         
-        then the heaters are the begining of the 
+        so we can do for every house we find the lowest heater which is right next to house and also 
+        the highest heater left to the current house
         
+        solution
         
-        visited is houses before the adding of the heaters
+        left_list = [10 ** 9] * len(houses)
+        right = [10 ssss777777s)
         
-        the heap holds (radius, idx)
-        house_
-        initially the heap is (0, idx of the heaters after they get added to the houses)
-        
-        
-        while house_set exists and heap:
-            remove = radius, index
+        for house in houses:
+            while idx < len(heaters) and heaters[idx] < house:
+            idx += 1
             
-            max_radisu = max
+            if idx < len(heaters):
             
-            if index in house_set:
-                remove it from house_set
+        """
+        houses.sort()
+        heaters.sort()
+        dists = [10 ** 9] * len(houses)
+        idx = len(heaters) - 1
+        
+        
+        for house_idx in range(len(houses) - 1, -1, -1):
+            house = houses[house_idx]
+            while idx > -1 and heaters[idx] > house:
+                idx -= 1
+            
+            if idx == -1:
+                idx += 1
+            dists[house_idx] = abs(house - heaters[idx])
+                
+        idx = 0
+        for house_idx, house in enumerate(houses):
+            while idx < len(heaters) and heaters[idx] < house:
+                idx += 1
+                
+            if idx == len(heaters):
+                idx -= 1
+            dists[house_idx] = min(dists[house_idx], abs(heaters[idx] - house))
                 
         
-        return max_radius
-        
-        
-        house_set = set(house)
-        
-        
-        n = houses
-        m = heaters
-        
-        nlogn, (n + m)log(n + m)
-        time complexity = (n + m)log(n + m)
-        space complexity = n + m 
-        """
-        heaters.sort()
-        radius=0
-        for i,c in enumerate(houses):
-            if c>heaters[-1]:
-                idx=len(heaters)-1
-            else:
-                idx=bisect.bisect_left(heaters,c)
-            f_elemnt=heaters[idx]
-            if idx==0:
-                s_element=heaters[idx]
-            else:
-                s_element=heaters[idx-1]
-            m=min(abs(f_elemnt-c),abs(s_element-c))
-            radius=max(m,radius)
-        return radius
-
-            
-        
-        
+        return max(dists)
