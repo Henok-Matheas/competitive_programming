@@ -30,28 +30,21 @@ class Solution:
             
         """
         houses.sort()
-        heaters.sort()
-        dists = [10 ** 9] * len(houses)
-        idx = len(heaters) - 1
+        heaters.sort()  
+        idx, ans = 0, 0
         
-        
-        for house_idx in range(len(houses) - 1, -1, -1):
-            house = houses[house_idx]
-            while idx > -1 and heaters[idx] > house:
-                idx -= 1
-            
-            if idx == -1:
-                idx += 1
-            dists[house_idx] = abs(house - heaters[idx])
-                
-        idx = 0
         for house_idx, house in enumerate(houses):
+            min_rad = 10 ** 9
             while idx < len(heaters) and heaters[idx] < house:
-                idx += 1
-                
+                min_rad = abs(house - heaters[idx])
+                idx += 1   
             if idx == len(heaters):
                 idx -= 1
-            dists[house_idx] = min(dists[house_idx], abs(heaters[idx] - house))
-                
+            min_rad = min(min_rad, abs(heaters[idx] - house))
+            
+            if idx > 0:
+                min_rad = min(min_rad, abs(heaters[idx - 1] - house))
+            
+            ans = max(ans, min_rad)
         
-        return max(dists)
+        return ans
